@@ -1,0 +1,24 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appIDs": ["TEAM_ID.com.bruce.Investli"],
+        "components": [
+          {
+            "/": "/checkout_redirect*",
+            "comment": "Stripe checkout redirect"
+          },
+          {
+            "/": "/payment-success*",
+            "comment": "Payment success redirect"
+          },
+          {
+            "/": "/payment-cancel*",
+            "comment": "Payment cancel redirect"
+          }
+        ]
+      }
+    ]
+  }
+}

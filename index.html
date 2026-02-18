@@ -6,7 +6,7 @@
     <title>Investli — Real Estate Intelligence Powered by Zillow, FRED & AI</title>
     <meta name="description" content="Investli is the all-in-one real estate intelligence platform. Live Zillow listings, AI property analysis, FRED mortgage rates, Census data, skip tracing, and 14+ real-time data feeds for 2,500+ US cities.">
     <meta property="og:title" content="Investli — Invest Smarter. Close Faster.">
-    <meta property="og:description" content="Live Zillow listings, AI-powered deal analysis, real mortgage rates from FRED, and 14+ data feeds. The all-in-one app that replaces PropStream, DealMachine, and MLS tools.">
+    <meta property="og:description" content="Live Zillow listings, AI-powered deal analysis, real mortgage rates from FRED, and 14+ data feeds. The all-in-one platform that replaces your investor analytics, deal-finding, and MLS tools.">
     <meta property="og:image" content="https://investli.org/og-image.png">
     <meta property="og:url" content="https://investli.org">
     <meta name="twitter:card" content="summary_large_image">
@@ -14,39 +14,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
         :root {
-            --bg: #0A0E17;
-            --bg2: #111827;
-            --card: #1A1F2E;
-            --green: #2ECC71;
-            --green-dark: #27AE60;
-            --blue: #3498DB;
-            --text: #F3F4F6;
-            --text2: #9CA3AF;
-            --border: rgba(255,255,255,0.06);
-            --glow: rgba(46,204,113,0.15);
+            --bg: #0A0E17; --bg2: #111827; --card: #1A1F2E; --green: #2ECC71;
+            --green-dark: #27AE60; --blue: #3498DB; --text: #F3F4F6; --text2: #9CA3AF;
+            --border: rgba(255,255,255,0.06); --glow: rgba(46,204,113,0.15);
         }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* NAV */
-        nav {
-            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            background: rgba(10, 14, 23, 0.85);
-            border-bottom: 1px solid var(--border);
-        }
-        .nav-inner {
-            max-width: 1200px; margin: 0 auto; padding: 16px 24px;
-            display: flex; align-items: center; justify-content: space-between;
-        }
+        body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; backdrop-filter: blur(20px); background: rgba(10,14,23,0.85); border-bottom: 1px solid var(--border); }
+        .nav-inner { max-width: 1200px; margin: 0 auto; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; }
         .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
         .logo-icon { display: flex; align-items: flex-end; gap: 3px; }
         .logo-icon .bar { width: 6px; border-radius: 2px; background: var(--green); }
@@ -59,69 +34,37 @@
         .btn-primary:hover { background: var(--green-dark); transform: translateY(-1px); box-shadow: 0 8px 30px rgba(46,204,113,0.3); }
         .btn-outline { border: 1px solid rgba(255,255,255,0.15); color: var(--text); background: transparent; }
         .btn-outline:hover { border-color: var(--green); color: var(--green); }
-
-        /* HERO */
-        .hero {
-            min-height: 100vh; display: flex; align-items: center; justify-content: center;
-            text-align: center; padding: 120px 24px 80px; position: relative;
-        }
-        .hero::before {
-            content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-            width: 900px; height: 900px; border-radius: 50%;
-            background: radial-gradient(circle, rgba(46,204,113,0.1) 0%, rgba(52,152,219,0.04) 40%, transparent 70%);
-            pointer-events: none;
-        }
+        .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 120px 24px 80px; position: relative; }
+        .hero::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 900px; height: 900px; border-radius: 50%; background: radial-gradient(circle, rgba(46,204,113,0.1) 0%, rgba(52,152,219,0.04) 40%, transparent 70%); pointer-events: none; }
         .hero-content { max-width: 840px; position: relative; z-index: 1; }
         .badge { display: inline-block; padding: 6px 16px; border-radius: 100px; font-size: 13px; font-weight: 600; background: rgba(46,204,113,0.1); color: var(--green); border: 1px solid rgba(46,204,113,0.2); margin-bottom: 24px; }
         h1 { font-size: clamp(42px, 7vw, 72px); font-weight: 900; line-height: 1.05; letter-spacing: -2px; margin-bottom: 20px; }
         h1 .accent { color: var(--green); }
         .hero p { font-size: 20px; color: var(--text2); max-width: 620px; margin: 0 auto 40px; line-height: 1.7; }
         .hero-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-        .powered-by { margin-top: 40px; display: flex; gap: 24px; justify-content: center; align-items: center; flex-wrap: wrap; opacity: 0.7; }
-        .powered-by span { font-size: 12px; color: var(--text2); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
-        .data-pill { font-size: 11px; color: var(--text2); padding: 4px 12px; border: 1px solid var(--border); border-radius: 100px; font-weight: 500; }
-
-        /* STATS */
         .stats { display: flex; gap: 48px; justify-content: center; margin-top: 60px; flex-wrap: wrap; }
         .stat { text-align: center; }
         .stat-number { font-size: 40px; font-weight: 900; color: var(--green); }
         .stat-label { font-size: 13px; color: var(--text2); margin-top: 4px; }
-
-        /* SECTIONS */
+        .powered-by { margin-top: 40px; display: flex; gap: 24px; justify-content: center; align-items: center; flex-wrap: wrap; opacity: 0.7; }
+        .powered-by span { font-size: 12px; color: var(--text2); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+        .data-pill { font-size: 11px; color: var(--text2); padding: 4px 12px; border: 1px solid var(--border); border-radius: 100px; font-weight: 500; }
         section { padding: 100px 24px; }
         .container { max-width: 1200px; margin: 0 auto; }
         .section-tag { font-size: 13px; font-weight: 700; color: var(--green); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; }
         h2 { font-size: clamp(32px, 4vw, 48px); font-weight: 900; line-height: 1.1; letter-spacing: -1.5px; margin-bottom: 20px; }
         .section-desc { font-size: 18px; color: var(--text2); max-width: 640px; margin-bottom: 56px; }
-
-        /* DATA SOURCES STRIP */
-        .data-strip {
-            background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
-            padding: 40px 24px; text-align: center;
-        }
-        .data-strip h3 { font-size: 16px; font-weight: 800; color: var(--text); margin-bottom: 20px; }
+        .data-strip { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 40px 24px; text-align: center; }
+        .data-strip h3 { font-size: 16px; font-weight: 800; margin-bottom: 20px; }
         .source-grid { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; max-width: 900px; margin: 0 auto; }
-        .source-chip {
-            display: flex; align-items: center; gap: 6px; padding: 8px 16px;
-            background: rgba(255,255,255,0.03); border: 1px solid var(--border);
-            border-radius: 100px; font-size: 12px; font-weight: 600; color: var(--text2);
-        }
+        .source-chip { display: flex; align-items: center; gap: 6px; padding: 8px 16px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 100px; font-size: 12px; font-weight: 600; color: var(--text2); }
         .source-chip .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
         .source-chip.premium .dot { background: var(--blue); }
-
-        /* FEATURES */
         .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 24px; }
-        .feature-card {
-            background: var(--card); border: 1px solid var(--border); border-radius: 20px;
-            padding: 36px; transition: all 0.3s; position: relative; overflow: hidden;
-        }
+        .feature-card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 36px; transition: all 0.3s; position: relative; overflow: hidden; }
         .feature-card:hover { border-color: rgba(46,204,113,0.3); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.3); }
         .feature-card.highlight { border-color: rgba(46,204,113,0.2); }
-        .feature-card.highlight::after {
-            content: ''; position: absolute; top: 0; right: 0; width: 120px; height: 120px;
-            background: radial-gradient(circle at top right, var(--glow), transparent 70%);
-            pointer-events: none;
-        }
+        .feature-card.highlight::after { content: ''; position: absolute; top: 0; right: 0; width: 120px; height: 120px; background: radial-gradient(circle at top right, var(--glow), transparent 70%); pointer-events: none; }
         .feature-icon { width: 48px; height: 48px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 20px; }
         .feature-card h3 { font-size: 20px; font-weight: 800; margin-bottom: 10px; }
         .feature-card p { font-size: 15px; color: var(--text2); line-height: 1.7; }
@@ -129,30 +72,32 @@
         .tag-zillow { background: rgba(0,106,255,0.15); color: #4A9EFF; }
         .tag-free { background: rgba(46,204,113,0.15); color: var(--green); }
         .tag-ai { background: rgba(155,89,182,0.15); color: #BB6BD9; }
-
-        /* PRICING */
-        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
-        .price-card {
-            background: var(--card); border: 1px solid var(--border); border-radius: 24px;
-            padding: 40px 32px; position: relative; transition: all 0.3s;
-        }
+        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+        .price-card { background: var(--card); border: 1px solid var(--border); border-radius: 24px; padding: 36px 28px; position: relative; transition: all 0.3s; }
         .price-card.featured { border-color: var(--green); }
-        .price-card.featured::before {
-            content: 'MOST POPULAR'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
-            padding: 4px 16px; border-radius: 100px; font-size: 11px; font-weight: 800;
-            background: var(--green); color: #000; letter-spacing: 1px;
-        }
+        .price-card.featured::before { content: 'MOST POPULAR'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%); padding: 4px 16px; border-radius: 100px; font-size: 11px; font-weight: 800; background: var(--green); color: #000; letter-spacing: 1px; }
         .price-tier { font-size: 14px; font-weight: 700; color: var(--green); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
-        .price-name { font-size: 24px; font-weight: 900; margin-bottom: 16px; }
+        .price-name { font-size: 24px; font-weight: 900; margin-bottom: 4px; }
+        .price-geo { font-size: 13px; color: var(--blue); font-weight: 700; margin-bottom: 12px; }
         .price-amount { font-size: 48px; font-weight: 900; margin-bottom: 4px; }
         .price-amount span { font-size: 16px; font-weight: 500; color: var(--text2); }
-        .price-annual { font-size: 13px; color: var(--text2); margin-bottom: 28px; }
-        .price-features { list-style: none; margin-bottom: 32px; }
-        .price-features li { padding: 8px 0; font-size: 14px; color: var(--text2); display: flex; align-items: center; gap: 10px; }
-        .price-features li::before { content: '\2713'; color: var(--green); font-weight: 700; }
+        .price-annual { font-size: 13px; color: var(--text2); margin-bottom: 24px; }
+        .price-features { list-style: none; margin-bottom: 28px; }
+        .price-features li { padding: 6px 0; font-size: 14px; color: var(--text2); display: flex; align-items: flex-start; gap: 10px; }
+        .price-features li::before { content: '\2713'; color: var(--green); font-weight: 700; flex-shrink: 0; }
+        .price-features li.excluded::before { content: '\2717'; color: #666; }
+        .price-features li.excluded { color: #666; }
+        .price-features li.credit { color: var(--blue); }
+        .price-features li.credit::before { content: '$'; color: var(--blue); }
         .price-card .btn { width: 100%; }
-
-        /* COMPARISON */
+        .addon-section { background: var(--bg2); border-radius: 24px; padding: 48px; margin-top: 60px; }
+        .addon-section h3 { font-size: 24px; font-weight: 900; margin-bottom: 8px; text-align: center; }
+        .addon-section > p { text-align: center; color: var(--text2); margin-bottom: 32px; }
+        .addon-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+        .addon-item { padding: 16px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 14px; text-align: center; }
+        .addon-item .addon-name { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+        .addon-item .addon-price { font-size: 20px; font-weight: 900; color: var(--green); margin-bottom: 4px; }
+        .addon-item .addon-desc { font-size: 12px; color: var(--text2); }
         .comparison { background: var(--bg2); border-radius: 24px; padding: 48px; margin-top: 60px; }
         .comparison h3 { font-size: 24px; font-weight: 900; margin-bottom: 8px; text-align: center; }
         .comparison p { text-align: center; color: var(--text2); margin-bottom: 32px; }
@@ -162,38 +107,27 @@
         .comp-price { font-size: 14px; color: #EF4444; font-weight: 700; }
         .comp-item.us { background: rgba(46,204,113,0.08); grid-column: 1 / -1; }
         .comp-item.us .comp-price { color: var(--green); }
-
-        /* HOW IT WORKS */
-        .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 32px; counter-reset: step; }
-        .step { text-align: center; position: relative; }
+        .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 32px; }
+        .step { text-align: center; }
         .step-num { width: 48px; height: 48px; border-radius: 50%; background: rgba(46,204,113,0.1); border: 2px solid var(--green); display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 900; color: var(--green); margin: 0 auto 16px; }
         .step h4 { font-size: 16px; font-weight: 800; margin-bottom: 8px; }
         .step p { font-size: 14px; color: var(--text2); line-height: 1.6; }
-
-        /* CTA */
         .cta-section { text-align: center; }
-        .cta-box {
-            background: linear-gradient(135deg, rgba(46,204,113,0.1), rgba(52,152,219,0.1));
-            border: 1px solid rgba(46,204,113,0.2); border-radius: 32px;
-            padding: 80px 40px; max-width: 800px; margin: 0 auto;
-        }
+        .cta-box { background: linear-gradient(135deg, rgba(46,204,113,0.1), rgba(52,152,219,0.1)); border: 1px solid rgba(46,204,113,0.2); border-radius: 32px; padding: 80px 40px; max-width: 800px; margin: 0 auto; }
         .cta-box h2 { margin-bottom: 16px; }
         .cta-box p { color: var(--text2); font-size: 18px; margin-bottom: 32px; }
-
-        /* FOOTER */
         footer { border-top: 1px solid var(--border); padding: 60px 24px 40px; }
         .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 40px; }
         .footer-brand { max-width: 300px; }
         .footer-brand p { font-size: 14px; color: var(--text2); margin-top: 12px; }
-        .footer-col h4 { font-size: 14px; font-weight: 700; margin-bottom: 16px; color: var(--text); }
+        .footer-col h4 { font-size: 14px; font-weight: 700; margin-bottom: 16px; }
         .footer-col a { display: block; font-size: 14px; color: var(--text2); text-decoration: none; padding: 4px 0; transition: color 0.2s; }
         .footer-col a:hover { color: var(--green); }
         .footer-bottom { max-width: 1200px; margin: 40px auto 0; padding-top: 24px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
         .footer-bottom p { font-size: 13px; color: var(--text2); }
-
         @media (max-width: 768px) {
             .nav-links { display: none; }
-            .features-grid, .pricing-grid, .steps-grid { grid-template-columns: 1fr; }
+            .features-grid, .pricing-grid, .steps-grid, .addon-grid { grid-template-columns: 1fr; }
             .comp-grid { grid-template-columns: 1fr; }
             .footer-inner { flex-direction: column; }
             section { padding: 60px 20px; }
@@ -206,11 +140,7 @@
 <nav>
     <div class="nav-inner">
         <a href="/" class="logo">
-            <div class="logo-icon">
-                <div class="bar" style="height:12px"></div>
-                <div class="bar" style="height:20px"></div>
-                <div class="bar" style="height:28px"></div>
-            </div>
+            <div class="logo-icon"><div class="bar" style="height:12px"></div><div class="bar" style="height:20px"></div><div class="bar" style="height:28px"></div></div>
             <span class="logo-text">Investli</span>
         </a>
         <div class="nav-links">
@@ -223,7 +153,6 @@
     </div>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
     <div class="hero-content">
         <div class="badge">Powered by Zillow, FRED, Census & 14+ Live APIs</div>
@@ -242,7 +171,7 @@
         <div class="powered-by">
             <span>Data from</span>
             <span class="data-pill">Zillow</span>
-            <span class="data-pill">Realty Mole</span>
+            <span class="data-pill">US Real Estate</span>
             <span class="data-pill">FRED</span>
             <span class="data-pill">US Census</span>
             <span class="data-pill">EPA</span>
@@ -252,12 +181,11 @@
     </div>
 </section>
 
-<!-- DATA SOURCES -->
 <div class="data-strip" id="data">
     <h3>14 Real-Time Data Sources — All Built In</h3>
     <div class="source-grid">
         <div class="source-chip premium"><span class="dot"></span>Zillow — Listings, photos, Zestimates</div>
-        <div class="source-chip premium"><span class="dot"></span>Realty Mole — Sale & rental data</div>
+        <div class="source-chip premium"><span class="dot"></span>US Real Estate — Sale & rental data</div>
         <div class="source-chip"><span class="dot"></span>FRED — Mortgage rates, CPI, HPI</div>
         <div class="source-chip"><span class="dot"></span>US Census — Income, home values</div>
         <div class="source-chip"><span class="dot"></span>OpenStreetMap — Schools, transit, POIs</div>
@@ -271,163 +199,203 @@
     </div>
 </div>
 
-<!-- FEATURES -->
 <section id="features">
     <div class="container">
         <div class="section-tag">Features</div>
         <h2>Every tool an investor needs.<br>One app.</h2>
-        <p class="section-desc">Search any US address for real Zillow data, AI analysis, and investment scoring. No fake data, no sample properties — everything is live.</p>
+        <p class="section-desc">Search any US address for real Zillow data, AI analysis, and investment scoring. No fake data — everything is live.</p>
         <div class="features-grid">
             <div class="feature-card highlight">
                 <div class="feature-icon" style="background:rgba(0,106,255,0.1)">🔍</div>
                 <h3>Live Zillow Integration</h3>
-                <p>Search any address or city — get real listings with photos, prices, Zestimates, price history, comparable sales, and direct links to Zillow. Know instantly if a property is on or off market.</p>
+                <p>Real listings with photos, prices, Zestimates, price history, comparable sales, and direct links to Zillow. Know instantly if a property is on or off market.</p>
                 <span class="feature-tag tag-zillow">ZILLOW POWERED</span>
             </div>
             <div class="feature-card highlight">
                 <div class="feature-icon" style="background:rgba(155,89,182,0.1)">🤖</div>
                 <h3>AI Deal Analyst</h3>
-                <p>Paste any address and our AI runs a full investment analysis: cap rate, cash flow, deal score, Zestimate comparison, investor suggestions, and comparable market data. Trained on real estate fundamentals.</p>
+                <p>Full investment analysis on any address: cap rate, cash flow, deal score, Zestimate comparison, investor suggestions, and comparable market data.</p>
                 <span class="feature-tag tag-ai">AI POWERED</span>
             </div>
             <div class="feature-card">
                 <div class="feature-icon" style="background:rgba(52,152,219,0.1)">📊</div>
                 <h3>Live Market Intelligence</h3>
-                <p>Real-time mortgage rates from the Federal Reserve, Census demographics, city-vs-city comparisons, and AI-generated market alerts — no API key required for core data.</p>
+                <p>Real-time mortgage rates from FRED, Census demographics, city-vs-city comparisons, and AI-generated market alerts.</p>
                 <span class="feature-tag tag-free">FREE — NO KEY NEEDED</span>
             </div>
             <div class="feature-card">
                 <div class="feature-icon" style="background:rgba(46,204,113,0.1)">💰</div>
                 <h3>Investment Scoring</h3>
-                <p>Every property gets an instant 0-100 investment score with cap rate, cash-on-cash return, DSCR, and 1% rule analysis. See exactly whether a deal works before you make an offer.</p>
+                <p>Instant 0-100 investment score with cap rate, cash-on-cash return, DSCR, and 1% rule analysis. See if a deal works before you offer.</p>
                 <span class="feature-tag tag-ai">AUTO-CALCULATED</span>
             </div>
             <div class="feature-card">
                 <div class="feature-icon" style="background:rgba(46,204,113,0.1)">🏗</div>
                 <h3>BuildIQ Scanner</h3>
-                <p>AI construction intelligence. Scan properties, diagnose issues, get repair timelines and cost estimates. Source materials from multiple stores with price comparisons.</p>
+                <p>AI construction intelligence. Scan properties, diagnose issues, get repair timelines and cost estimates. Source materials from multiple stores.</p>
                 <span class="feature-tag tag-ai">AI POWERED</span>
             </div>
             <div class="feature-card">
                 <div class="feature-icon" style="background:rgba(231,76,60,0.1)">🎯</div>
                 <h3>Skip Trace & Lead Gen</h3>
-                <p>Find property owners instantly. Driving for Dollars GPS tracking, direct mail campaigns, lead pipeline management, and list stacking for targeted outreach.</p>
+                <p>Find property owners instantly. GPS-tracked driving for dollars, direct mail campaigns, lead pipeline management, and list stacking.</p>
             </div>
         </div>
     </div>
 </section>
 
-<!-- HOW IT WORKS -->
 <section style="background: var(--bg2)">
     <div class="container">
         <div class="section-tag">How It Works</div>
         <h2>Real data in 3 steps.</h2>
-        <p class="section-desc">Connect your free RapidAPI key once. Then search any address in the country for instant Zillow data and AI analysis.</p>
+        <p class="section-desc">Connect your free RapidAPI key once, pick your home state, and start searching.</p>
         <div class="steps-grid">
             <div class="step">
                 <div class="step-num">1</div>
                 <h4>Get Your Free API Key</h4>
-                <p>Create a free account at rapidapi.com. Subscribe to "Zillow Com1" and "Realty Mole Property API" — both have free tiers.</p>
+                <p>Create a free account at rapidapi.com. Subscribe to "Zillow Com1" and "US Real Estate" — both have free tiers.</p>
             </div>
             <div class="step">
                 <div class="step-num">2</div>
-                <h4>Paste Key in Settings</h4>
-                <p>Open Investli, go to Settings, paste your X-RapidAPI-Key and tap Save. One key powers both Zillow and Realty Mole data.</p>
+                <h4>Pick Your State</h4>
+                <p>Choose your home state during setup. Starter covers 1 state, Pro covers 5, Elite covers all 50. Upgrade anytime to expand.</p>
             </div>
             <div class="step">
                 <div class="step-num">3</div>
-                <h4>Search Any Address</h4>
-                <p>Search any property in the US. Get real Zillow listings, photos, Zestimates, investment scores, comps, and AI analysis instantly.</p>
+                <h4>Search & Analyze</h4>
+                <p>Search any property in your state. Get Zillow data, AI analysis, investment scores, and comps instantly. Buy credits for skip traces, scans, and more.</p>
             </div>
         </div>
     </div>
 </section>
 
-<!-- PRICING -->
 <section id="pricing">
     <div class="container">
         <div class="section-tag">Pricing</div>
-        <h2>Start free. Scale when ready.</h2>
-        <p class="section-desc">Every paid plan starts with a 7-day free trial. Cancel anytime. Subscribe securely through the App Store.</p>
+        <h2>Pick your coverage. Pay for what you use.</h2>
+        <p class="section-desc">Geographic access + included credits + pay-per-use add-ons. Every plan starts with a 7-day free trial.</p>
         <div class="pricing-grid">
             <div class="price-card">
                 <div class="price-tier">Free</div>
-                <div class="price-name">Explorer</div>
+                <div class="price-name">Free</div>
+                <div class="price-geo">1 state — view only</div>
                 <div class="price-amount">$0<span>/mo</span></div>
-                <div class="price-annual">Free forever</div>
+                <div class="price-annual">Free forever — no credit card</div>
                 <ul class="price-features">
-                    <li>Browse property listings</li>
-                    <li>Basic data for 3 cities</li>
                     <li>5 searches per day</li>
-                    <li>FRED rates + Census data</li>
+                    <li>FRED mortgage rates + Census data</li>
                     <li>Mortgage calculator</li>
+                    <li class="excluded">AI Assistant</li>
+                    <li class="excluded">Zillow integration</li>
+                    <li class="excluded">Investment scoring</li>
+                    <li class="excluded">Pro tools</li>
                 </ul>
                 <a href="#download" class="btn btn-outline">Get Started</a>
             </div>
             <div class="price-card">
-                <div class="price-tier">Pro</div>
-                <div class="price-name">State Pro</div>
-                <div class="price-amount">$79.99<span>/mo</span></div>
-                <div class="price-annual">$767.88/year (save 20%)</div>
+                <div class="price-tier">Starter</div>
+                <div class="price-name">Starter</div>
+                <div class="price-geo">1 state — fully unlocked</div>
+                <div class="price-amount">$39.99<span>/mo</span></div>
+                <div class="price-annual">$319.88/year ($26.66/mo — save 33%)</div>
                 <ul class="price-features">
-                    <li>Full state coverage</li>
-                    <li>Zillow + Realty Mole data</li>
-                    <li>All 9 Pro tools</li>
-                    <li>BuildIQ scanning</li>
-                    <li>AI Assistant + Voice</li>
+                    <li>30 searches per day</li>
+                    <li>Zillow live listings + photos</li>
+                    <li>AI Assistant (25 queries/day)</li>
                     <li>Investment scoring</li>
+                    <li>Deal analyzer + ROI calculator</li>
+                    <li>Rental analyzer + heatmaps</li>
+                    <li>3 PDF reports/month</li>
+                    <li class="credit">Skip traces: $0.99 each</li>
+                    <li class="excluded">BuildIQ — buy separately ($59.99 or $19.99/mo)</li>
                 </ul>
                 <a href="#download" class="btn btn-outline">Start Free Trial</a>
             </div>
             <div class="price-card featured">
-                <div class="price-tier">Elite</div>
-                <div class="price-name">Regional Elite</div>
-                <div class="price-amount">$169.99<span>/mo</span></div>
-                <div class="price-annual">$1,631.88/year (save 20%)</div>
+                <div class="price-tier">Pro</div>
+                <div class="price-name">Pro</div>
+                <div class="price-geo">Up to 5 states</div>
+                <div class="price-amount">$99.99<span>/mo</span></div>
+                <div class="price-annual">$799.88/year ($66.66/mo — save 33%)</div>
                 <ul class="price-features">
-                    <li>Multi-state coverage</li>
-                    <li>Everything in State Pro</li>
-                    <li>Unlimited AI queries</li>
-                    <li>Zillow comps + detail</li>
+                    <li>150 searches per day</li>
+                    <li>Everything in Starter</li>
+                    <li>Unlimited AI Assistant</li>
+                    <li>Zillow comps + price history</li>
+                    <li>25 skip traces/month included</li>
+                    <li>BuildIQ INCLUDED (5 scans/month)</li>
+                    <li>15 PDF reports/month included</li>
+                    <li>Contractor marketplace + hiring</li>
+                    <li>Lead pipeline + CRM + GPS</li>
                     <li>Portfolio tracking</li>
-                    <li>Priority support</li>
+                    <li class="credit">Direct mail: $1.49/piece</li>
                 </ul>
                 <a href="#download" class="btn btn-primary">Start Free Trial</a>
             </div>
             <div class="price-card">
-                <div class="price-tier">Enterprise</div>
-                <div class="price-name">National</div>
-                <div class="price-amount">$349.99<span>/mo</span></div>
-                <div class="price-annual">$3,359.88/year (save 20%)</div>
+                <div class="price-tier">Elite</div>
+                <div class="price-name">Elite</div>
+                <div class="price-geo">All 50 states + DC</div>
+                <div class="price-amount">$249.99<span>/mo</span></div>
+                <div class="price-annual">$1,999.88/year ($166.66/mo — save 33%)</div>
                 <ul class="price-features">
-                    <li>All 2,500+ US cities</li>
-                    <li>Everything in Regional</li>
-                    <li>API access</li>
-                    <li>Team seats</li>
-                    <li>White-label reports</li>
-                    <li>Dedicated support</li>
+                    <li>Unlimited searches</li>
+                    <li>Everything in Pro</li>
+                    <li>200 skip traces/month included</li>
+                    <li>Unlimited BuildIQ scans</li>
+                    <li>50 direct mail/month included</li>
+                    <li>Unlimited PDF reports</li>
+                    <li>Predictive analytics</li>
+                    <li>List stacking + MLS data</li>
+                    <li>API access + team seats (10)</li>
+                    <li>Priority 24/7 support</li>
                 </ul>
-                <a href="#download" class="btn btn-outline">Contact Sales</a>
+                <a href="#download" class="btn btn-outline">Start Free Trial</a>
+            </div>
+        </div>
+
+        <div class="addon-section">
+            <h3>BuildIQ — AI Property Scanner</h3>
+            <p>Sold separately. Scan properties, diagnose issues, get repair estimates + material sourcing. Included free with Pro & Elite.</p>
+            <div class="addon-grid" style="max-width:500px; margin:0 auto">
+                <div class="addon-item" style="border-color:var(--green)"><div class="addon-name">BuildIQ Pass</div><div class="addon-price">$59.99</div><div class="addon-desc">One-time purchase · 5 scans/month forever</div></div>
+                <div class="addon-item" style="border-color:var(--blue)"><div class="addon-name">BuildIQ Pro</div><div class="addon-price">$19.99/mo</div><div class="addon-desc">20 scans/month · Cancel anytime</div></div>
+            </div>
+            <p style="margin-top:16px;font-size:12px">Extra scans: $4.99 each without a pass, $2.99 each with a pass</p>
+        </div>
+
+        <div class="addon-section" style="margin-top:32px">
+            <h3>Pay-Per-Use Add-Ons</h3>
+            <p>Buy credits anytime — works on any paid plan</p>
+            <div class="addon-grid">
+                <div class="addon-item"><div class="addon-name">Extra Searches</div><div class="addon-price">$4.99</div><div class="addon-desc">25 searches</div></div>
+                <div class="addon-item"><div class="addon-name">Extra AI Queries</div><div class="addon-price">$4.99</div><div class="addon-desc">25 queries</div></div>
+                <div class="addon-item"><div class="addon-name">Skip Trace</div><div class="addon-price">$1.49</div><div class="addon-desc">per lookup</div></div>
+                <div class="addon-item"><div class="addon-name">Direct Mail</div><div class="addon-price">$1.99</div><div class="addon-desc">per piece</div></div>
+                <div class="addon-item"><div class="addon-name">PDF Report</div><div class="addon-price">$2.99</div><div class="addon-desc">per report</div></div>
+                <div class="addon-item"><div class="addon-name">Comp Report</div><div class="addon-price">$3.99</div><div class="addon-desc">deep analysis</div></div>
+                <div class="addon-item"><div class="addon-name">Bulk Export</div><div class="addon-price">$12.99</div><div class="addon-desc">CSV lead list</div></div>
+                <div class="addon-item"><div class="addon-name">Video Consult</div><div class="addon-price">$4.99</div><div class="addon-desc">booking fee</div></div>
             </div>
         </div>
 
         <div class="comparison">
-            <h3>Stop overpaying for scattered tools</h3>
-            <p>What you're spending now vs. Investli</p>
+            <h3>One app replaces your entire investor toolkit</h3>
+            <p>What investors typically pay across multiple tools vs. Investli</p>
             <div class="comp-grid">
-                <div class="comp-item"><span class="comp-name">PropStream</span><span class="comp-price">$99-199/mo</span></div>
-                <div class="comp-item"><span class="comp-name">DealMachine</span><span class="comp-price">$49-99/mo</span></div>
-                <div class="comp-item"><span class="comp-name">Mashvisor</span><span class="comp-price">$59-249/mo</span></div>
-                <div class="comp-item"><span class="comp-name">BatchLeads</span><span class="comp-price">$79-199/mo</span></div>
-                <div class="comp-item"><span class="comp-name">CoStar</span><span class="comp-price">$149-599/mo</span></div>
-                <div class="comp-item"><span class="comp-name">Buildium</span><span class="comp-price">$55-375/mo</span></div>
-                <div class="comp-item us"><span class="comp-name" style="font-weight:900">Investli — All Features</span><span class="comp-price">from $79.99/mo</span></div>
+                <div class="comp-item"><span class="comp-name">Investor Analytics</span><span class="comp-price">$99-199/mo</span></div>
+                <div class="comp-item"><span class="comp-name">Deal-Finding Apps</span><span class="comp-price">$49-99/mo</span></div>
+                <div class="comp-item"><span class="comp-name">Investment Analysis</span><span class="comp-price">$59-249/mo</span></div>
+                <div class="comp-item"><span class="comp-name">Lead Generation</span><span class="comp-price">$79-199/mo</span></div>
+                <div class="comp-item"><span class="comp-name">Commercial Data</span><span class="comp-price">$149-599/mo</span></div>
+                <div class="comp-item"><span class="comp-name">Property Management</span><span class="comp-price">$55-375/mo</span></div>
+                <div class="comp-item us"><span class="comp-name" style="font-weight:900">Investli — All In One</span><span class="comp-price">from $39.99/mo</span></div>
             </div>
+            <p style="margin-top:16px;font-size:11px;color:var(--text2)">Pricing based on publicly available information as of February 2026.</p>
         </div>
     </div>
 </section>
 
-<!-- CTA -->
 <section class="cta-section" id="download">
     <div class="container">
         <div class="cta-box">
@@ -442,11 +410,7 @@
     <div class="footer-inner">
         <div class="footer-brand">
             <a href="/" class="logo">
-                <div class="logo-icon">
-                    <div class="bar" style="height:12px"></div>
-                    <div class="bar" style="height:20px"></div>
-                    <div class="bar" style="height:28px"></div>
-                </div>
+                <div class="logo-icon"><div class="bar" style="height:12px"></div><div class="bar" style="height:20px"></div><div class="bar" style="height:28px"></div></div>
                 <span class="logo-text">Investli</span>
             </a>
             <p>Real estate intelligence powered by Zillow, FRED, Census, and 14+ live data sources. No fake data.</p>
@@ -467,7 +431,6 @@
             <h4>Support</h4>
             <a href="/support">Help Center</a>
             <a href="mailto:support@investli.org">support@investli.org</a>
-            <a href="mailto:legal@investli.org">legal@investli.org</a>
         </div>
     </div>
     <div class="footer-bottom">
