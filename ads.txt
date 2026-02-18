@@ -1,0 +1,17 @@
+# ads.txt file for investli.org
+# This file declares authorized digital sellers for this domain.
+# See https://iabtechlab.com/ads-txt/ for more information.
+#
+# To add your Google AdSense/AdMob publisher ID, uncomment and update the line below:
+# google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0
+#
+# To add your Google Ad Manager publisher ID:
+# google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0
+#
+# Replace pub-XXXXXXXXXXXXXXXX with your actual publisher ID from:
+# - Google AdSense: https://www.google.com/adsense/
+# - Google AdMob: https://admob.google.com/
+# - Google Ad Manager: https://admanager.google.com/
+#
+# If you are not running ads, you can leave this file with only comments.
+# Having the file present (even empty) tells crawlers you've acknowledged ads.txt.

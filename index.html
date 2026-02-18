@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investli — Real Estate Intelligence Powered by Zillow, FRED & AI</title>
+    <meta name="description" content="Investli is the all-in-one real estate intelligence platform. Live Zillow listings, AI property analysis, FRED mortgage rates, Census data, skip tracing, and 14+ real-time data feeds for 2,500+ US cities.">
+    <meta property="og:title" content="Investli — Invest Smarter. Close Faster.">
+    <meta property="og:description" content="Live Zillow listings, AI-powered deal analysis, real mortgage rates from FRED, and 14+ data feeds. The all-in-one app that replaces PropStream, DealMachine, and MLS tools.">
+    <meta property="og:image" content="https://investli.org/og-image.png">
+    <meta property="og:url" content="https://investli.org">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect rx='20' width='100' height='100' fill='%230A0E17'/><rect x='30' y='55' width='8' height='20' rx='2' fill='%232ECC71'/><rect x='46' y='40' width='8' height='35' rx='2' fill='%232ECC71'/><rect x='62' y='25' width='8' height='50' rx='2' fill='%232ECC71'/></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #0A0E17;
+            --bg2: #111827;
+            --card: #1A1F2E;
+            --green: #2ECC71;
+            --green-dark: #27AE60;
+            --blue: #3498DB;
+            --text: #F3F4F6;
+            --text2: #9CA3AF;
+            --border: rgba(255,255,255,0.06);
+            --glow: rgba(46,204,113,0.15);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* NAV */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            background: rgba(10, 14, 23, 0.85);
+            border-bottom: 1px solid var(--border);
+        }
+        .nav-inner {
+            max-width: 1200px; margin: 0 auto; padding: 16px 24px;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .logo-icon { display: flex; align-items: flex-end; gap: 3px; }
+        .logo-icon .bar { width: 6px; border-radius: 2px; background: var(--green); }
+        .logo-text { font-size: 22px; font-weight: 800; color: var(--text); letter-spacing: -0.5px; }
+        .nav-links { display: flex; gap: 32px; align-items: center; }
+        .nav-links a { color: var(--text2); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--text); }
+        .btn { display: inline-flex; align-items: center; justify-content: center; padding: 12px 28px; border-radius: 12px; font-weight: 700; font-size: 15px; text-decoration: none; transition: all 0.3s; cursor: pointer; border: none; }
+        .btn-primary { background: var(--green); color: #000; }
+        .btn-primary:hover { background: var(--green-dark); transform: translateY(-1px); box-shadow: 0 8px 30px rgba(46,204,113,0.3); }
+        .btn-outline { border: 1px solid rgba(255,255,255,0.15); color: var(--text); background: transparent; }
+        .btn-outline:hover { border-color: var(--green); color: var(--green); }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh; display: flex; align-items: center; justify-content: center;
+            text-align: center; padding: 120px 24px 80px; position: relative;
+        }
+        .hero::before {
+            content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+            width: 900px; height: 900px; border-radius: 50%;
+            background: radial-gradient(circle, rgba(46,204,113,0.1) 0%, rgba(52,152,219,0.04) 40%, transparent 70%);
+            pointer-events: none;
+        }
+        .hero-content { max-width: 840px; position: relative; z-index: 1; }
+        .badge { display: inline-block; padding: 6px 16px; border-radius: 100px; font-size: 13px; font-weight: 600; background: rgba(46,204,113,0.1); color: var(--green); border: 1px solid rgba(46,204,113,0.2); margin-bottom: 24px; }
+        h1 { font-size: clamp(42px, 7vw, 72px); font-weight: 900; line-height: 1.05; letter-spacing: -2px; margin-bottom: 20px; }
+        h1 .accent { color: var(--green); }
+        .hero p { font-size: 20px; color: var(--text2); max-width: 620px; margin: 0 auto 40px; line-height: 1.7; }
+        .hero-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+        .powered-by { margin-top: 40px; display: flex; gap: 24px; justify-content: center; align-items: center; flex-wrap: wrap; opacity: 0.7; }
+        .powered-by span { font-size: 12px; color: var(--text2); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+        .data-pill { font-size: 11px; color: var(--text2); padding: 4px 12px; border: 1px solid var(--border); border-radius: 100px; font-weight: 500; }
+
+        /* STATS */
+        .stats { display: flex; gap: 48px; justify-content: center; margin-top: 60px; flex-wrap: wrap; }
+        .stat { text-align: center; }
+        .stat-number { font-size: 40px; font-weight: 900; color: var(--green); }
+        .stat-label { font-size: 13px; color: var(--text2); margin-top: 4px; }
+
+        /* SECTIONS */
+        section { padding: 100px 24px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .section-tag { font-size: 13px; font-weight: 700; color: var(--green); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; }
+        h2 { font-size: clamp(32px, 4vw, 48px); font-weight: 900; line-height: 1.1; letter-spacing: -1.5px; margin-bottom: 20px; }
+        .section-desc { font-size: 18px; color: var(--text2); max-width: 640px; margin-bottom: 56px; }
+
+        /* DATA SOURCES STRIP */
+        .data-strip {
+            background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+            padding: 40px 24px; text-align: center;
+        }
+        .data-strip h3 { font-size: 16px; font-weight: 800; color: var(--text); margin-bottom: 20px; }
+        .source-grid { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; max-width: 900px; margin: 0 auto; }
+        .source-chip {
+            display: flex; align-items: center; gap: 6px; padding: 8px 16px;
+            background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+            border-radius: 100px; font-size: 12px; font-weight: 600; color: var(--text2);
+        }
+        .source-chip .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
+        .source-chip.premium .dot { background: var(--blue); }
+
+        /* FEATURES */
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 24px; }
+        .feature-card {
+            background: var(--card); border: 1px solid var(--border); border-radius: 20px;
+            padding: 36px; transition: all 0.3s; position: relative; overflow: hidden;
+        }
+        .feature-card:hover { border-color: rgba(46,204,113,0.3); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.3); }
+        .feature-card.highlight { border-color: rgba(46,204,113,0.2); }
+        .feature-card.highlight::after {
+            content: ''; position: absolute; top: 0; right: 0; width: 120px; height: 120px;
+            background: radial-gradient(circle at top right, var(--glow), transparent 70%);
+            pointer-events: none;
+        }
+        .feature-icon { width: 48px; height: 48px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 20px; }
+        .feature-card h3 { font-size: 20px; font-weight: 800; margin-bottom: 10px; }
+        .feature-card p { font-size: 15px; color: var(--text2); line-height: 1.7; }
+        .feature-tag { display: inline-block; font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 4px; margin-top: 12px; }
+        .tag-zillow { background: rgba(0,106,255,0.15); color: #4A9EFF; }
+        .tag-free { background: rgba(46,204,113,0.15); color: var(--green); }
+        .tag-ai { background: rgba(155,89,182,0.15); color: #BB6BD9; }
+
+        /* PRICING */
+        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+        .price-card {
+            background: var(--card); border: 1px solid var(--border); border-radius: 24px;
+            padding: 40px 32px; position: relative; transition: all 0.3s;
+        }
+        .price-card.featured { border-color: var(--green); }
+        .price-card.featured::before {
+            content: 'MOST POPULAR'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+            padding: 4px 16px; border-radius: 100px; font-size: 11px; font-weight: 800;
+            background: var(--green); color: #000; letter-spacing: 1px;
+        }
+        .price-tier { font-size: 14px; font-weight: 700; color: var(--green); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+        .price-name { font-size: 24px; font-weight: 900; margin-bottom: 16px; }
+        .price-amount { font-size: 48px; font-weight: 900; margin-bottom: 4px; }
+        .price-amount span { font-size: 16px; font-weight: 500; color: var(--text2); }
+        .price-annual { font-size: 13px; color: var(--text2); margin-bottom: 28px; }
+        .price-features { list-style: none; margin-bottom: 32px; }
+        .price-features li { padding: 8px 0; font-size: 14px; color: var(--text2); display: flex; align-items: center; gap: 10px; }
+        .price-features li::before { content: '\2713'; color: var(--green); font-weight: 700; }
+        .price-card .btn { width: 100%; }
+
+        /* COMPARISON */
+        .comparison { background: var(--bg2); border-radius: 24px; padding: 48px; margin-top: 60px; }
+        .comparison h3 { font-size: 24px; font-weight: 900; margin-bottom: 8px; text-align: center; }
+        .comparison p { text-align: center; color: var(--text2); margin-bottom: 32px; }
+        .comp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 600px; margin: 0 auto; }
+        .comp-item { display: flex; justify-content: space-between; padding: 12px 16px; background: rgba(255,255,255,0.03); border-radius: 10px; }
+        .comp-name { font-size: 14px; font-weight: 600; }
+        .comp-price { font-size: 14px; color: #EF4444; font-weight: 700; }
+        .comp-item.us { background: rgba(46,204,113,0.08); grid-column: 1 / -1; }
+        .comp-item.us .comp-price { color: var(--green); }
+
+        /* HOW IT WORKS */
+        .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 32px; counter-reset: step; }
+        .step { text-align: center; position: relative; }
+        .step-num { width: 48px; height: 48px; border-radius: 50%; background: rgba(46,204,113,0.1); border: 2px solid var(--green); display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 900; color: var(--green); margin: 0 auto 16px; }
+        .step h4 { font-size: 16px; font-weight: 800; margin-bottom: 8px; }
+        .step p { font-size: 14px; color: var(--text2); line-height: 1.6; }
+
+        /* CTA */
+        .cta-section { text-align: center; }
+        .cta-box {
+            background: linear-gradient(135deg, rgba(46,204,113,0.1), rgba(52,152,219,0.1));
+            border: 1px solid rgba(46,204,113,0.2); border-radius: 32px;
+            padding: 80px 40px; max-width: 800px; margin: 0 auto;
+        }
+        .cta-box h2 { margin-bottom: 16px; }
+        .cta-box p { color: var(--text2); font-size: 18px; margin-bottom: 32px; }
+
+        /* FOOTER */
+        footer { border-top: 1px solid var(--border); padding: 60px 24px 40px; }
+        .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 40px; }
+        .footer-brand { max-width: 300px; }
+        .footer-brand p { font-size: 14px; color: var(--text2); margin-top: 12px; }
+        .footer-col h4 { font-size: 14px; font-weight: 700; margin-bottom: 16px; color: var(--text); }
+        .footer-col a { display: block; font-size: 14px; color: var(--text2); text-decoration: none; padding: 4px 0; transition: color 0.2s; }
+        .footer-col a:hover { color: var(--green); }
+        .footer-bottom { max-width: 1200px; margin: 40px auto 0; padding-top: 24px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+        .footer-bottom p { font-size: 13px; color: var(--text2); }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .features-grid, .pricing-grid, .steps-grid { grid-template-columns: 1fr; }
+            .comp-grid { grid-template-columns: 1fr; }
+            .footer-inner { flex-direction: column; }
+            section { padding: 60px 20px; }
+            .powered-by { flex-direction: column; gap: 8px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-inner">
+        <a href="/" class="logo">
+            <div class="logo-icon">
+                <div class="bar" style="height:12px"></div>
+                <div class="bar" style="height:20px"></div>
+                <div class="bar" style="height:28px"></div>
+            </div>
+            <span class="logo-text">Investli</span>
+        </a>
+        <div class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#data">Data Sources</a>
+            <a href="#pricing">Pricing</a>
+            <a href="/support">Support</a>
+            <a href="#download" class="btn btn-primary" style="padding:10px 24px;">Download</a>
+        </div>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-content">
+        <div class="badge">Powered by Zillow, FRED, Census & 14+ Live APIs</div>
+        <h1>Invest Smarter.<br><span class="accent">Close Faster.</span></h1>
+        <p>Search any address in the US. Get real Zillow listings, live mortgage rates, AI-powered deal analysis, and investment scores — all in one app.</p>
+        <div class="hero-buttons">
+            <a href="#download" class="btn btn-primary">Download on the App Store</a>
+            <a href="#features" class="btn btn-outline">See Features</a>
+        </div>
+        <div class="stats">
+            <div class="stat"><div class="stat-number">2,500+</div><div class="stat-label">US Cities</div></div>
+            <div class="stat"><div class="stat-number">14</div><div class="stat-label">Live APIs</div></div>
+            <div class="stat"><div class="stat-number">0</div><div class="stat-label">Fake Data</div></div>
+            <div class="stat"><div class="stat-number">AI</div><div class="stat-label">Powered</div></div>
+        </div>
+        <div class="powered-by">
+            <span>Data from</span>
+            <span class="data-pill">Zillow</span>
+            <span class="data-pill">Realty Mole</span>
+            <span class="data-pill">FRED</span>
+            <span class="data-pill">US Census</span>
+            <span class="data-pill">EPA</span>
+            <span class="data-pill">USGS</span>
+            <span class="data-pill">+8 more</span>
+        </div>
+    </div>
+</section>
+
+<!-- DATA SOURCES -->
+<div class="data-strip" id="data">
+    <h3>14 Real-Time Data Sources — All Built In</h3>
+    <div class="source-grid">
+        <div class="source-chip premium"><span class="dot"></span>Zillow — Listings, photos, Zestimates</div>
+        <div class="source-chip premium"><span class="dot"></span>Realty Mole — Sale & rental data</div>
+        <div class="source-chip"><span class="dot"></span>FRED — Mortgage rates, CPI, HPI</div>
+        <div class="source-chip"><span class="dot"></span>US Census — Income, home values</div>
+        <div class="source-chip"><span class="dot"></span>OpenStreetMap — Schools, transit, POIs</div>
+        <div class="source-chip"><span class="dot"></span>Open-Meteo — Weather, air quality</div>
+        <div class="source-chip"><span class="dot"></span>EPA — Environmental hazards</div>
+        <div class="source-chip"><span class="dot"></span>USGS — Earthquake risk</div>
+        <div class="source-chip"><span class="dot"></span>FCC — Broadband availability</div>
+        <div class="source-chip"><span class="dot"></span>NWS — Weather alerts</div>
+        <div class="source-chip"><span class="dot"></span>Socrata — 15+ city data portals</div>
+        <div class="source-chip"><span class="dot"></span>Apple Geocoder — Address resolution</div>
+    </div>
+</div>
+
+<!-- FEATURES -->
+<section id="features">
+    <div class="container">
+        <div class="section-tag">Features</div>
+        <h2>Every tool an investor needs.<br>One app.</h2>
+        <p class="section-desc">Search any US address for real Zillow data, AI analysis, and investment scoring. No fake data, no sample properties — everything is live.</p>
+        <div class="features-grid">
+            <div class="feature-card highlight">
+                <div class="feature-icon" style="background:rgba(0,106,255,0.1)">🔍</div>
+                <h3>Live Zillow Integration</h3>
+                <p>Search any address or city — get real listings with photos, prices, Zestimates, price history, comparable sales, and direct links to Zillow. Know instantly if a property is on or off market.</p>
+                <span class="feature-tag tag-zillow">ZILLOW POWERED</span>
+            </div>
+            <div class="feature-card highlight">
+                <div class="feature-icon" style="background:rgba(155,89,182,0.1)">🤖</div>
+                <h3>AI Deal Analyst</h3>
+                <p>Paste any address and our AI runs a full investment analysis: cap rate, cash flow, deal score, Zestimate comparison, investor suggestions, and comparable market data. Trained on real estate fundamentals.</p>
+                <span class="feature-tag tag-ai">AI POWERED</span>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon" style="background:rgba(52,152,219,0.1)">📊</div>
+                <h3>Live Market Intelligence</h3>
+                <p>Real-time mortgage rates from the Federal Reserve, Census demographics, city-vs-city comparisons, and AI-generated market alerts — no API key required for core data.</p>
+                <span class="feature-tag tag-free">FREE — NO KEY NEEDED</span>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon" style="background:rgba(46,204,113,0.1)">💰</div>
+                <h3>Investment Scoring</h3>
+                <p>Every property gets an instant 0-100 investment score with cap rate, cash-on-cash return, DSCR, and 1% rule analysis. See exactly whether a deal works before you make an offer.</p>
+                <span class="feature-tag tag-ai">AUTO-CALCULATED</span>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon" style="background:rgba(46,204,113,0.1)">🏗</div>
+                <h3>BuildIQ Scanner</h3>
+                <p>AI construction intelligence. Scan properties, diagnose issues, get repair timelines and cost estimates. Source materials from multiple stores with price comparisons.</p>
+                <span class="feature-tag tag-ai">AI POWERED</span>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon" style="background:rgba(231,76,60,0.1)">🎯</div>
+                <h3>Skip Trace & Lead Gen</h3>
+                <p>Find property owners instantly. Driving for Dollars GPS tracking, direct mail campaigns, lead pipeline management, and list stacking for targeted outreach.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section style="background: var(--bg2)">
+    <div class="container">
+        <div class="section-tag">How It Works</div>
+        <h2>Real data in 3 steps.</h2>
+        <p class="section-desc">Connect your free RapidAPI key once. Then search any address in the country for instant Zillow data and AI analysis.</p>
+        <div class="steps-grid">
+            <div class="step">
+                <div class="step-num">1</div>
+                <h4>Get Your Free API Key</h4>
+                <p>Create a free account at rapidapi.com. Subscribe to "Zillow Com1" and "Realty Mole Property API" — both have free tiers.</p>
+            </div>
+            <div class="step">
+                <div class="step-num">2</div>
+                <h4>Paste Key in Settings</h4>
+                <p>Open Investli, go to Settings, paste your X-RapidAPI-Key and tap Save. One key powers both Zillow and Realty Mole data.</p>
+            </div>
+            <div class="step">
+                <div class="step-num">3</div>
+                <h4>Search Any Address</h4>
+                <p>Search any property in the US. Get real Zillow listings, photos, Zestimates, investment scores, comps, and AI analysis instantly.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+    <div class="container">
+        <div class="section-tag">Pricing</div>
+        <h2>Start free. Scale when ready.</h2>
+        <p class="section-desc">Every paid plan starts with a 7-day free trial. Cancel anytime. Subscribe securely through the App Store.</p>
+        <div class="pricing-grid">
+            <div class="price-card">
+                <div class="price-tier">Free</div>
+                <div class="price-name">Explorer</div>
+                <div class="price-amount">$0<span>/mo</span></div>
+                <div class="price-annual">Free forever</div>
+                <ul class="price-features">
+                    <li>Browse property listings</li>
+                    <li>Basic data for 3 cities</li>
+                    <li>5 searches per day</li>
+                    <li>FRED rates + Census data</li>
+                    <li>Mortgage calculator</li>
+                </ul>
+                <a href="#download" class="btn btn-outline">Get Started</a>
+            </div>
+            <div class="price-card">
+                <div class="price-tier">Pro</div>
+                <div class="price-name">State Pro</div>
+                <div class="price-amount">$79.99<span>/mo</span></div>
+                <div class="price-annual">$767.88/year (save 20%)</div>
+                <ul class="price-features">
+                    <li>Full state coverage</li>
+                    <li>Zillow + Realty Mole data</li>
+                    <li>All 9 Pro tools</li>
+                    <li>BuildIQ scanning</li>
+                    <li>AI Assistant + Voice</li>
+                    <li>Investment scoring</li>
+                </ul>
+                <a href="#download" class="btn btn-outline">Start Free Trial</a>
+            </div>
+            <div class="price-card featured">
+                <div class="price-tier">Elite</div>
+                <div class="price-name">Regional Elite</div>
+                <div class="price-amount">$169.99<span>/mo</span></div>
+                <div class="price-annual">$1,631.88/year (save 20%)</div>
+                <ul class="price-features">
+                    <li>Multi-state coverage</li>
+                    <li>Everything in State Pro</li>
+                    <li>Unlimited AI queries</li>
+                    <li>Zillow comps + detail</li>
+                    <li>Portfolio tracking</li>
+                    <li>Priority support</li>
+                </ul>
+                <a href="#download" class="btn btn-primary">Start Free Trial</a>
+            </div>
+            <div class="price-card">
+                <div class="price-tier">Enterprise</div>
+                <div class="price-name">National</div>
+                <div class="price-amount">$349.99<span>/mo</span></div>
+                <div class="price-annual">$3,359.88/year (save 20%)</div>
+                <ul class="price-features">
+                    <li>All 2,500+ US cities</li>
+                    <li>Everything in Regional</li>
+                    <li>API access</li>
+                    <li>Team seats</li>
+                    <li>White-label reports</li>
+                    <li>Dedicated support</li>
+                </ul>
+                <a href="#download" class="btn btn-outline">Contact Sales</a>
+            </div>
+        </div>
+
+        <div class="comparison">
+            <h3>Stop overpaying for scattered tools</h3>
+            <p>What you're spending now vs. Investli</p>
+            <div class="comp-grid">
+                <div class="comp-item"><span class="comp-name">PropStream</span><span class="comp-price">$99-199/mo</span></div>
+                <div class="comp-item"><span class="comp-name">DealMachine</span><span class="comp-price">$49-99/mo</span></div>
+                <div class="comp-item"><span class="comp-name">Mashvisor</span><span class="comp-price">$59-249/mo</span></div>
+                <div class="comp-item"><span class="comp-name">BatchLeads</span><span class="comp-price">$79-199/mo</span></div>
+                <div class="comp-item"><span class="comp-name">CoStar</span><span class="comp-price">$149-599/mo</span></div>
+                <div class="comp-item"><span class="comp-name">Buildium</span><span class="comp-price">$55-375/mo</span></div>
+                <div class="comp-item us"><span class="comp-name" style="font-weight:900">Investli — All Features</span><span class="comp-price">from $79.99/mo</span></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="download">
+    <div class="container">
+        <div class="cta-box">
+            <h2>Ready to invest smarter?</h2>
+            <p>Download Investli and search any property in the US with real Zillow data, AI analysis, and live market intelligence.</p>
+            <a href="https://apps.apple.com/app/investli" class="btn btn-primary" style="font-size:18px; padding:18px 48px;">Download on the App Store</a>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-inner">
+        <div class="footer-brand">
+            <a href="/" class="logo">
+                <div class="logo-icon">
+                    <div class="bar" style="height:12px"></div>
+                    <div class="bar" style="height:20px"></div>
+                    <div class="bar" style="height:28px"></div>
+                </div>
+                <span class="logo-text">Investli</span>
+            </a>
+            <p>Real estate intelligence powered by Zillow, FRED, Census, and 14+ live data sources. No fake data.</p>
+        </div>
+        <div class="footer-col">
+            <h4>Product</h4>
+            <a href="#features">Features</a>
+            <a href="#data">Data Sources</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#download">Download</a>
+        </div>
+        <div class="footer-col">
+            <h4>Legal</h4>
+            <a href="/privacy">Privacy Policy</a>
+            <a href="/terms">Terms of Service</a>
+        </div>
+        <div class="footer-col">
+            <h4>Support</h4>
+            <a href="/support">Help Center</a>
+            <a href="mailto:support@investli.org">support@investli.org</a>
+            <a href="mailto:legal@investli.org">legal@investli.org</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2026 Investli. All rights reserved.</p>
+        <p>Investli is for informational purposes only and does not constitute financial, legal, or real estate advice.</p>
+    </div>
+</footer>
+
+</body>
+</html>
